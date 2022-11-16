@@ -23,8 +23,11 @@ def login(request):
         password = request.POST["password"]
         if username and password :
             user = authenticate(username = username, password = password)
-            authlogin(request, user)
-            return redirect('home')
+            if user:
+                authlogin(request, user)
+                return redirect('home')
+            else :
+                return HttpResponse("wrong password")
     else:  
         form = AuthenticationForm()  
     context = {  
